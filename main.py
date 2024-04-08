@@ -73,7 +73,7 @@ print("")
 print("----------------------------------------")
 
 print("")
-print("Usando 4 hilos")
+print("Usando 4 hilos (Hardcodeado)")
 
 globarrayNum = []
 def EnumeradorTres( inicio, fin ):
@@ -82,16 +82,10 @@ def EnumeradorTres( inicio, fin ):
         time.sleep(0.01)
     return 0
 
-Num_Hilos = 2
 
 t0 = time.time()
 listaHilos= []
 
-Val1= 1
-Val2= int(100/Num_Hilos)
-t= threading.Thread(target=EnumeradorTres, args=(Val1,Val2)) #No puedo operar directamente en los args :(
-listaHilos.append(t)                                         #¿Ciclo for pero en donde y con que variables?
-t.start()
 t= threading.Thread(target=EnumeradorTres, args=(1,25)) 
 listaHilos.append(t)                                    
 t.start()   
@@ -104,7 +98,41 @@ t.start()
 t= threading.Thread(target=EnumeradorTres, args=(76,100))
 listaHilos.append(t)
 t.start()
-    
+
+
+for t in listaHilos:
+    t.join()
+
+tf = time.time() - t0
+
+globarrayNum.sort()
+print(f"Tiempo de ejecución: {tf}")
+print (globarrayNum)
+print("")
+
+print("----------------------------------------")
+
+print("")
+print("Usando n hilos (dinamico)")
+
+arrayNum = []
+def EnumeradorCuatro( inicio, fin ):
+    for i in range ( inicio, fin+1 , 1):
+        arrayNum.append(i)
+        time.sleep(0.01)
+    return 0
+
+Num_Hilos = 20
+
+t0 = time.time()
+listaHilos= []
+
+Val1= 1
+Val2= int(100/Num_Hilos)
+t= threading.Thread(target=EnumeradorCuatro, args=(Val1,Val2)) #No puedo operar directamente en los args :(
+listaHilos.append(t)                                         #¿Ciclo for pero en donde y con que variables?
+t.start()
+
 #Se tarda exactamente lo mismo dado a que sigue siendo de 1 a 100: Ya no
 #¿Que puedo hacer con SumVeces?: Entrar en un ciclo for.
 
@@ -113,7 +141,7 @@ for t in listaHilos:
 
 tf = time.time() - t0
 
-globarrayNum.sort()
+arrayNum.sort()
 print(f"Tiempo de ejecución: {tf}")
 print (globarrayNum)
 print("")
