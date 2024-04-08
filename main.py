@@ -86,15 +86,26 @@ Num_Hilos = 2
 
 t0 = time.time()
 listaHilos= []
-for i in range (Num_Hilos):
-    Val1= 1
-    Val2= 100
-    SumVeces= 100/Num_Hilos
-    t= threading.Thread(target=EnumeradorTres, args=(Val1,Val2)) #No puedo operar directamente en los args :(
-    listaHilos.append(t)                                         #¿Ciclo for pero en donde y con que variables?
-    t.start()
+
+Val1= 1
+Val2= int(100/Num_Hilos)
+t= threading.Thread(target=EnumeradorTres, args=(Val1,Val2)) #No puedo operar directamente en los args :(
+listaHilos.append(t)                                         #¿Ciclo for pero en donde y con que variables?
+t.start()
+t= threading.Thread(target=EnumeradorTres, args=(1,25)) 
+listaHilos.append(t)                                    
+t.start()   
+t= threading.Thread(target=EnumeradorTres, args=(26,50))
+listaHilos.append(t)
+t.start()
+t= threading.Thread(target=EnumeradorTres, args=(51,75))
+listaHilos.append(t)
+t.start()
+t= threading.Thread(target=EnumeradorTres, args=(76,100))
+listaHilos.append(t)
+t.start()
     
-#Se tarda exactamente lo mismo dado a que sigue siendo de 1 a 100
+#Se tarda exactamente lo mismo dado a que sigue siendo de 1 a 100: Ya no
 #¿Que puedo hacer con SumVeces?: Entrar en un ciclo for.
 
 for t in listaHilos:
@@ -102,7 +113,7 @@ for t in listaHilos:
 
 tf = time.time() - t0
 
-
+globarrayNum.sort()
 print(f"Tiempo de ejecución: {tf}")
 print (globarrayNum)
 print("")
